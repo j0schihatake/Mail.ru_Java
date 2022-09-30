@@ -45,6 +45,14 @@ public class Main {
             // Установить Кому: поле заголовка
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
+            /*  Несколько адресатов:
+            Address[] cc = new Address[] {
+                    new InternetAddress(to),
+                    new InternetAddress(to),
+                    new InternetAddress(to)};
+            message.addRecipients(Message.RecipientType.CC, cc);
+            */
+
             // Установить тему: поле заголовка
             message.setSubject("Это тема письма!");
 
