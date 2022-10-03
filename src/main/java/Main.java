@@ -15,7 +15,7 @@ public class Main {
 
         //simpleMessage();
 
-        simpleFileAttachment();
+        simpleFileAttachment("yandex.ru");
     }
 
     public static void simpleMessage(){
@@ -79,33 +79,66 @@ public class Main {
         }
     }
 
-    public static void simpleFileAttachment(){
+    public static void simpleFileAttachment(String type){
 
-        String to = "";
-        String from = "";
-        String host = "smtp.mail.ru";
-        String password = "";
+        String to = "none";
+        String from = "none";
+        String host = "none";
+        String password = "none";
 
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "false");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        props.put("mail.smtp.port", 465);
-        props.put("mail.debug", "true");
-        props.put("mail.smtp.password", password);
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.mail.ru");
-        props.put("mail.user", from);
-        props.put("mail.password", password);
+
+        switch(type){
+            case "mail.ru":
+                to = "";
+                from = "";
+                host = "smtp.mail.ru";
+                password = "";
+
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "false");
+                props.put("mail.smtp.host", host);
+                props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+                props.put("mail.smtp.port", 465);
+                props.put("mail.debug", "true");
+                props.put("mail.smtp.password", password);
+                props.put("mail.smtp.ssl.enable", "true");
+                props.put("mail.smtp.ssl.trust", "smtp.mail.ru");
+                props.put("mail.user", from);
+                props.put("mail.password", password);
+                break;
+            case "yandex.ru":
+                to = "";
+                from = "";
+                host = "smtp.yandex.ru";
+                password = "";
+
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "false");
+                props.put("mail.smtp.host", host);
+                props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+                props.put("mail.smtp.port", 465);
+                props.put("mail.debug", "true");
+                props.put("mail.smtp.password", password);
+                props.put("mail.smtp.ssl.enable", "true");
+                props.put("mail.smtp.ssl.trust", "smtp.yandex.ru");
+                props.put("mail.user", from);
+                props.put("mail.password", password);
+                props.put("mail.smtp.user", from);
+                props.put("mail.smtp.quitwait", "false");
+                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                break;
+        }
 
 
         // Получение объекта Session по умолчанию
+        String finalFrom = from;
+        String finalPassword = password;
         Session session = Session.getDefaultInstance(props,
                 new Authenticator() {
                     protected PasswordAuthentication  getPasswordAuthentication() {
                         return new PasswordAuthentication(
-                                from, password);
+                                finalFrom, finalPassword);
                     }
                 });
 
@@ -130,7 +163,7 @@ public class Main {
 
             //add file attachments
             DataSource source;
-            File file = new File("D:/Develop/Java/MailRuJava/Mail.ru_Java/sifu.jpg");
+            File file = new File("D:/Develop/Java/MailRuJava/Mail.ru_Java/GFGsheet.xlsx");
             if(file.exists()){
                 // add attachment
                 messageBodyPart = new MimeBodyPart();
